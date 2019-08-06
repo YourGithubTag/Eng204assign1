@@ -56,18 +56,32 @@ void Money::addCents(int cents) {
 }
 
 void Money::subtractDollars(int dollars) {
-    this->
+	if (dollars < 0 ){
+		dollars = 0;
+	}
+
+    if (this->dollars - dollars < 0){
+	this->dollars = 0;	
+	} 
+	else {
+	this->dollars = this->dollars - dollars;
+	}
     //TODO: implement
 }
 
 void Money::subtractCents(int cents) {
+	if (cents <0) {
+		cents = 0;
+	}
 
     int total = asCents() - cents;
     if (total < 0) {
         total = 0;
     }
-    this->dollars = total /100;
+    this->dollars =(total /100);
     this->cents = total % 100;
+
+
 }
 
 
