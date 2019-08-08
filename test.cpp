@@ -7,7 +7,7 @@
 
 // flags to enable tests for the later parts of the assignment
 #define ENABLE_T2_TESTS
-//#define ENABLE_T3_TESTS
+#define ENABLE_T3_TESTS
 //#define ENABLE_T4_TESTS
 // include headers for classes being tested
 #include "Money.h"

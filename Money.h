@@ -6,8 +6,6 @@ class Money {
 private:
 	int dollars;
 	int cents;
-	
-	//TODO: declare your variables here
 public:
 	Money();
 	Money(int dollars, int cents);
