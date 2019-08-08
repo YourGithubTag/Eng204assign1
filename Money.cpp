@@ -18,7 +18,7 @@ Money::Money(int dollars, int cents) {
 		//set to zero for either variables
 	if (cents > 99) {
 		this->dollars = this->dollars + (cents / 100);
-		this->cents = cents % 10;		
+		this->cents = cents % 100;		
 }
 	this->dollars = dollars;
 	this->cents = cents;
