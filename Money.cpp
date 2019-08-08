@@ -1,61 +1,89 @@
 
 #include "Money.h"
 
-Money::Money() {
-	this->dollars = 0;
-	this->cents = 0;
-	//TODO: do
-}
-
 Money::Money(int dollars, int cents) {
-	if (dollars < 0) {
-		this->dollars = 0;
-	}
-	if (cents < 0) {
-		this->cents = 0;
-		} 
+    if (dollars < 0) {
+        this->dollars = 0;
+    }
+    if (cents < 0) {
+        this->cents = 0;
+        }
 
-		//set to zero for either variables
-	if (cents > 99) {
-		this->dollars = this->dollars + (cents / 100);
-		this->cents = cents % 100;		
+        //set to zero for either variables
+    if (cents > 99) {
+        this->dollars = this->dollars + (cents / 100);
+        this->cents = cents % 10;        
 }
-	this->dollars = dollars;
-	this->cents = cents;
+    this->dollars = dollars;
+    this->cents = cents;
 
-	//TODO: do
+    //TODO: do
 }
 
 int Money::getDollars() const {
-	//TODO: implement
-	return -1;
+    
+    return this->dollars;
 }
 
 int Money::getCents() const {
-	//TODO: implement
-	return -1;
+    return this->cents;
 }
 
 int Money::asCents() const {
-	//TODO: implement
-	return -1;
+    if (dollars < 0 || cents < 0){
+        return -1;
+    }
+    return dollars * 100 + cents;
 }
 
 void Money::addDollars(int dollars) {
-	//TODO: implement
+        if (dollars <  0){
+            dollars = 0;
+        }
+
+        this->dollars = this->dollars + dollars;
 }
 
 void Money::addCents(int cents) {
-	//TODO: implement
+    if (cents <  0){
+            cents= 0;
+        }
+    if (cents > 99){
+        addDollars(cents/100);
+        cents = cents % 100;
+    }
+        this-> cents = this->cents + cents;
 }
 
 void Money::subtractDollars(int dollars) {
-	//TODO: implement
+	if (dollars < 0 ){
+		dollars = 0;
+	}
+
+    if (this->dollars - dollars < 0){
+	this->dollars = 0;	
+	} 
+	else {
+	this->dollars = this->dollars - dollars;
+	}
+    //TODO: implement
 }
 
 void Money::subtractCents(int cents) {
-	//TODO: implement
+	if (cents <0) {
+		cents = 0;
+	}
+
+    int total = asCents() - cents;
+    if (total < 0) {
+        total = 0;
+    }
+    this->dollars =(total /100);
+    this->cents = total % 100;
+
+
 }
+
 
 void Money::add(const Money &other) {
 	//TODO: implement
