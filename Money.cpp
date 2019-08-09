@@ -91,15 +91,41 @@ void Money::subtractCents(int cents) {
 }
 
 void Money::add(const Money &other) {
-	//TODO: implement
+	addDollars(other.dollars);
+	addCents(other.cents);
+
+ 	if (this->cents > 99){
+       	 	addDollars(this->cents/100);
+       	 	this->cents = this->cents % 100;
+    	}
+
 }
 
 void Money::subtract(const Money &other) {
-	//TODO: implement
+	int total = 0;
+	if(this->asCents() - other.asCents() >0 ){
+		total =  this->asCents() - other.asCents();
+		this->dollars = total / 100;
+		this->cents = total % 100;
+	}
 }
 
 void Money::split(Money &other) {
-	//TODO: implement
+	int total = 0;
+	total = this->asCents() + other.asCents();
+	if (total % 2 == 0) {
+		this->dollars = (total / 2) / 100;
+		this->cents = (total / 2) % 100;
+		other.dollars = (total / 2) / 100;
+		other.cents = (total / 2) % 100;
+	}
+	if (total % 2 == 1) {
+		total = total - 1;
+		this->dollars = (total / 2) / 100;
+		this->cents = (total / 2) % 100;
+		other.dollars = (total / 2) / 100;
+		other.cents = (total / 2) % 100;
+		}
 }
 
 Money::~Money() {

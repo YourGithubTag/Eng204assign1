@@ -8,7 +8,8 @@
 // flags to enable tests for the later parts of the assignment
 #define ENABLE_T2_TESTS
 #define ENABLE_T3_TESTS
-//#define ENABLE_T4_TESTS
+#define ENABLE_T4_TESTS
+
 // include headers for classes being tested
 #include "Money.h"
 using namespace std;
@@ -107,7 +108,8 @@ TestResult test_functionSplitInvalid() {
 
 #ifdef ENABLE_T2_TESTS
 /*
-	
+	Test creating a default Money creates it with the correct default dollars and cents,
+	and that the getCents(), getDollars() and asCents() methods work properly.
 */
 TestResult test_DefaultMoney() {
     Money amount;
@@ -127,6 +129,11 @@ TestResult test_SimpleMoney() {
     ASSERT(amount.getDollars() == 3);
     ASSERT(amount.getCents() == 5);
     ASSERT(amount.asCents() == 305);
+
+    Money amount2(-3,210);
+    ASSERT(amount2.getDollars() == 2);
+    ASSERT(amount2.getCents() == 10);
+    ASSERT(amount2.asCents() == 210);
 
     return TR_PASS;
 }
@@ -162,6 +169,12 @@ TestResult test_addDollars() {
 	ASSERT(amount.getCents() == 5);
 	ASSERT(amount.asCents() == 805);
 
+	amount.addDollars(-5);
+
+	ASSERT(amount.getDollars() == 8);
+	ASSERT(amount.getCents() == 5);
+	ASSERT(amount.asCents() == 805);
+
     return TR_PASS;
 }
 
@@ -186,6 +199,13 @@ TestResult test_addCents() {
 	ASSERT(amount.getCents() == 18);
 	ASSERT(amount.asCents() == 518);
 
+	amount.addCents(-208);
+
+	ASSERT(amount.getDollars() == 5);
+	ASSERT(amount.getCents() == 18);
+	ASSERT(amount.asCents() == 518);
+
+
     return TR_PASS;
 }
 
@@ -199,6 +219,12 @@ TestResult test_subtractDollars() {
 	ASSERT(amount.asCents() == 305);
 
     amount.subtractDollars(2);
+
+	ASSERT(amount.getDollars() == 1);
+	ASSERT(amount.getCents() == 5);
+	ASSERT(amount.asCents() == 105);
+
+	amount.subtractDollars(-2);
 
 	ASSERT(amount.getDollars() == 1);
 	ASSERT(amount.getCents() == 5);
@@ -221,6 +247,18 @@ TestResult test_subtractCents() {
 	ASSERT(amount.getDollars() == 3);
 	ASSERT(amount.getCents() == 45);
 	ASSERT(amount.asCents() == 345);
+
+	amount.subtractCents(-5);
+
+	ASSERT(amount.getDollars() == 3);
+	ASSERT(amount.getCents() == 45);
+	ASSERT(amount.asCents() == 345);
+
+	amount.subtractCents(50);
+
+	ASSERT(amount.getDollars() == 2);
+	ASSERT(amount.getCents() == 95);
+	ASSERT(amount.asCents() == 295);
 
     return TR_PASS;
 }
@@ -307,6 +345,19 @@ TestResult test_SubtractMoney() {
     ASSERT(amount2.asCents() == 205);
     ASSERT(amount3.asCents() == 90);
 
+    Money amount4(5,35);
+    ASSERT(amount4.asCents() == 535);
+
+    amount1.subtract(amount4);
+
+    ASSERT(amount1.getDollars() == 0);
+    ASSERT(amount1.getCents() == 85);
+    ASSERT(amount1.asCents() == 85);
+    ASSERT(amount2.asCents() == 205);
+    ASSERT(amount3.asCents() == 90);
+    ASSERT(amount4.asCents() == 535);
+
+
     return TR_PASS;
 }
 
@@ -328,6 +379,19 @@ TestResult test_SplitMoney() {
     ASSERT(amount2.getDollars() == 8);
     ASSERT(amount2.getCents() == 25);
     ASSERT(amount2.asCents() == 825);
+
+
+    Money amount3(8,25);
+    ASSERT(amount3.asCents() == 825);
+
+    amount1.split(amount3);
+
+    ASSERT(amount1.getDollars() == 8);
+    ASSERT(amount1.getCents() == 25);
+    ASSERT(amount1.asCents() == 825);
+    ASSERT(amount3.getDollars() == 8);
+    ASSERT(amount3.getCents() == 25);
+    ASSERT(amount3.asCents() == 825);
 
     return TR_PASS;
 }
